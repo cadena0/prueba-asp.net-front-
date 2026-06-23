@@ -1,0 +1,34 @@
+<nav class="navbar">
+
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index">
+            RentasApp
+        </a>
+    </div>
+
+    <div class="nav-links">
+
+        <a asp-controller="Home"
+           asp-action="Index">
+            Inicio
+        </a>
+
+        <a asp-controller="Property"
+           asp-action="Index">
+            Propiedades
+        </a>
+
+        <a asp-controller="Auth"
+           asp-action="Login">
+            Iniciar Sesión
+        </a>
+
+        <a asp-controller="Auth"
+           asp-action="Register"
+           class="btn-register">
+            Registrarse
+        </a>
+
+    </div>
+
+</nav>

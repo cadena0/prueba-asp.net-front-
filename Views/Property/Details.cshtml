@@ -1,0 +1,97 @@
+@{
+    ViewData["Title"] = "Detalle de Propiedad";
+}
+
+<div class="container py-5">
+    <div class="row" id="propertyDetail">
+        <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/api.js" asp-append-version="true"></script>
+    <script>
+        const propertyId = @ViewBag.PropertyId;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetchApi(`/properties/${propertyId}`);
+                if (!res.ok) {
+                    const errorBody = await res.json();
+                    throw new Error(errorBody.message || 'Error al cargar la propiedad.');
+                }
+
+                const p = await res.json();
+                const role = (window.getUserRole ? window.getUserRole() : null);
+                let bookingForm = '';
+
+                if (role === 'GUEST') {
+                    bookingForm = `
+                        <div class="card p-4 shadow-sm mt-4">
+                            <h4 class="mb-3">Reserva ahora</h4>
+                            <label class="form-label">Check-in</label>
+                            <input type="date" id="startDate" class="form-control mb-3" required>
+                            <label class="form-label">Check-out</label>
+                            <input type="date" id="endDate" class="form-control mb-3" required>
+                            <button onclick="bookProperty(${p.id})" class="btn btn-primary w-100">Confirmar reserva</button>
+                        </div>
+                    `;
+                } else if (role === 'OWNER') {
+                    bookingForm = `<div class="alert alert-warning mt-4">Inicia sesión como huésped para reservar esta propiedad.</div>`;
+                } else {
+                    bookingForm = `<div class="alert alert-warning mt-4">Debes iniciar sesión para reservar. <a href="/Auth/Login">Ingresar</a></div>`;
+                }
+
+                document.getElementById('propertyDetail').innerHTML = `
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm mb-4">
+                            <img src="${p.imageUrls?.[0] || '/images/default-house.jpg'}" class="card-img-top" alt="${p.title}">
+                            <div class="card-body">
+                                <h1 class="h3 mb-2">${p.title}</h1>
+                                <p class="text-muted mb-1">${p.city}</p>
+                                <p class="mb-3">Propietario: <strong>${p.ownerName}</strong></p>
+                                <p>${p.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm p-4 mb-4">
+                            <h4 class="mb-3">Precio por noche</h4>
+                            <div class="display-6 fw-bold mb-2">$${p.pricePerNight}</div>
+                            <p class="text-muted">Precio calculado automáticamente al reservar.</p>
+                        </div>
+                        ${bookingForm}
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('propertyDetail').innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+            }
+        });
+
+        async function bookProperty(id) {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            if (!startDate || !endDate) return alert('Selecciona las fechas');
+
+            try {
+                const res = await fetchApi('/reservations', {
+                    method: 'POST',
+                    body: JSON.stringify({ propertyId: id, startDate, endDate })
+                });
+
+                if (res.ok) {
+                    alert('Reserva exitosa');
+                    window.location.href = '/User/MyReservations';
+                    return;
+                }
+
+                const errorBody = await res.json();
+                alert(errorBody.message || 'Error al reservar');
+            } catch (error) {
+                alert('Error de conexión');
+            }
+        }
+    </script>
+}

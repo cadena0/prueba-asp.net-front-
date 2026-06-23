@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Propiedades";
+}
+
+<div class="container mt-4">
+    <h2 id="pageTitle">Todas las propiedades</h2>
+    <div id="propertiesGrid" class="row">
+        </div>
+</div>
+
+@section Scripts {
+    <script src="/js/api.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const cityFilter = '@ViewBag.City';
+            const endpoint = cityFilter ? `/properties?city=${cityFilter}` : '/properties';
+            
+            if(cityFilter) {
+                document.getElementById('pageTitle').innerText = `Propiedades en ${cityFilter}`;
+            }
+
+            try {
+                const res = await fetchApi(endpoint);
+                const properties = await res.json();
+                
+                const grid = document.getElementById('propertiesGrid');
+                grid.innerHTML = properties.map(p => `
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="${p.imageUrls?.[0] || '/images/default-house.jpg'}" class="card-img-top" alt="${p.title}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${p.title}</h5>
+                                    <p class="card-text">${p.city}</p>
+                                    <p class="card-text"><strong>$${p.pricePerNight}</strong> / noche</p>
+                                    <a href="/Property/Details/${p.id}" class="btn btn-primary">Ver detalle</a>
+                                </div>
+                            </div>
+                        </div>
+                `).join('');
+            } catch (error) {
+                console.error("Error cargando propiedades", error);
+            }
+        });
+    </script>
+}

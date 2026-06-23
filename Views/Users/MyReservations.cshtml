@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Mis Reservas";
+}
+
+<div class="container mt-4">
+    <h2>Mis Viajes / Reservas</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Propiedad</th>
+                <th>Ciudad</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="reservationsTable">
+            <tr><td colspan="5">Cargando...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="/js/api.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if ((window.getUserRole ? window.getUserRole() : null) !== 'GUEST') {
+                window.location.href = '/Auth/Login';
+                return;
+            }
+
+            try {
+                const res = await fetchApi('/reservations/byuser');
+                const data = await res.json();
+                
+                const tbody = document.getElementById('reservationsTable');
+                if(data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5">No tienes reservaciones aún.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(r => `
+                    <tr>
+                        <td>${r.property.title}</td>
+                        <td>${r.property.city}</td>
+                        <td>${new Date(r.startDate).toLocaleDateString()}</td>
+                        <td>${new Date(r.endDate).toLocaleDateString()}</td>
+                        <td><span class="badge bg-success">Confirmada</span></td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    </script>
+}

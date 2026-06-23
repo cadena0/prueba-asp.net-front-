@@ -1,50 +1,61 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - pruebaAsp</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - RentaApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/pruebaAsp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">pruebaAsp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+    <header class="main-header shadow-sm">
+        <div class="container px-4 py-3 d-flex align-items-center justify-content-between">
+            <a class="brand" asp-area="" asp-controller="Home" asp-action="Index">RentaX</a>
+            <nav class="nav-links d-flex gap-3 align-items-center">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                <a class="nav-link" asp-controller="Property" asp-action="Index">Propiedades</a>
+                <a class="nav-link btn btn-outline-primary btn-sm" asp-controller="Auth" asp-action="Login">Iniciar sesión</a>
+                <a class="nav-link btn btn-primary btn-sm text-white" asp-controller="Auth" asp-action="Register">Registrarse</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="footer bg-dark text-light py-5">
+        <div class="container px-4">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5>RentaX</h5>
+                    <p>La mejor plataforma para encontrar y administrar estancias. Reservas confiables para viajeros y propietarios.</p>
+                </div>
+                <div class="col-md-4">
+                    <h6>Enlaces rápidos</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                        <li><a asp-controller="Property" asp-action="Index">Propiedades</a></li>
+                        <li><a asp-controller="Auth" asp-action="Login">Iniciar sesión</a></li>
+                        <li><a asp-controller="Auth" asp-action="Register">Registrarse</a></li>
                     </ul>
                 </div>
+                <div class="col-md-4">
+                    <h6>Contacto</h6>
+                    <p>Correo: soporte@rentax.com</p>
+                    <p>Teléfono: +57 300 000 0000</p>
+                </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - pruebaAsp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="footer-bottom mt-4 pt-3 border-top border-secondary text-muted d-flex justify-content-between">
+                <span>&copy; 2026 RentaX. Todos los derechos reservados.</span>
+                <a class="text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Política de privacidad</a>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

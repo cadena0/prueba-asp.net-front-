@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="auth-card mx-auto my-5">
+    <div class="text-center mb-4">
+        <h1 class="h3 fw-bold">Crea tu cuenta</h1>
+        <p class="text-muted">Regístrate como huésped o propietario y empieza a usar la plataforma.</p>
+    </div>
+
+    <div id="authMessage"></div>
+
+    <form id="registerForm">
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input type="text" id="firstName" class="form-control" placeholder="Juan" required />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Apellido</label>
+                <input type="text" id="lastName" class="form-control" placeholder="Pérez" required />
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" id="email" class="form-control" placeholder="ejemplo@correo.com" required />
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password" id="password" class="form-control" placeholder="Tu contraseña" required />
+        </div>
+        <!-- Role selection removed: role is assigned server-side based on InitialOwner:Email -->
+        <button type="submit" class="btn btn-primary w-100 py-2">Registrarme</button>
+    </form>
+
+    <p class="text-center text-muted mt-4">¿Ya tienes cuenta? <a href="/Auth/Login">Inicia sesión</a></p>
+</div>
+
+<script src="/js/auth.js" asp-append-version="true"></script>

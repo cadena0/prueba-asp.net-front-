@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Crear Propiedad";
+}
+
+<div class="container mt-4">
+    <h2>Publicar nueva propiedad</h2>
+    <form id="createPropertyForm" class="mt-3" style="max-width: 600px;">
+        <div class="mb-3">
+            <label>Título</label>
+            <input type="text" id="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Ciudad</label>
+            <input type="text" id="city" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Descripción</label>
+            <textarea id="description" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Precio por Noche</label>
+            <input type="number" id="price" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Propiedad</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="/js/api.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const role = (window.getUserRole ? window.getUserRole() : null);
+            if (role !== 'OWNER') {
+                alert('Acceso denegado. Solo propietarios pueden crear inmuebles.');
+                window.location.href = '/';
+            }
+        });
+
+        document.getElementById('createPropertyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const payload = {
+                title: document.getElementById('title').value,
+                city: document.getElementById('city').value,
+                description: document.getElementById('description').value,
+                pricePerNight: parseFloat(document.getElementById('price').value)
+            };
+
+            try {
+                const res = await fetchApi('/properties', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.ok) {
+                    alert('Propiedad creada exitosamente');
+                    window.location.href = '/Owner/Dashboard';
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert('Error al crear la propiedad');
+            }
+        });
+    </script>
+}

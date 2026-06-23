@@ -1,8 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero bg-hero text-white">
+    <div class="container px-4 py-6 text-center">
+        <span class="eyebrow">Descubre experiencias</span>
+        <h1 class="display-5 fw-bold mt-3">Encuentra tu próxima estancia con estilo</h1>
+        <p class="lead text-white-75 mt-3">Casas, apartamentos y habitaciones únicas en las mejores ciudades.</p>
+        <div class="hero-actions d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
+            <a href="/Auth/Register" class="btn btn-primary btn-lg">Registrarme</a>
+            <button class="btn btn-outline-light btn-lg" onclick="loadProperties()">Buscar ahora</button>
+        </div>
+    </div>
+</section>
+
+<section class="container px-4 py-5">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h2 class="mb-0">Propiedades Disponibles</h2>
+            <p class="text-muted mb-0">Explora estancias listadas por propietarios confiables.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <select id="cityFilter" class="form-select">
+                <option value="">Todas las ciudades</option>
+            </select>
+            <button class="btn btn-primary" onclick="loadProperties()">Buscar</button>
+        </div>
+    </div>
+
+    <div id="propertiesContainer" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"></div>
+</section>

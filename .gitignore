@@ -1,0 +1,44 @@
+# Build outputs
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sublime-workspace
+
+# ASP.NET and app settings
+appsettings.Development.json
+secrets.json
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Publish output
+publish/
+
+# npm
+node_modules/
+
+# Temporary
+*.tmp
+
+# Ignore local database files
+*.db
+
+# Ignore JetBrains Rider caches
+.idea/
+*.iml
