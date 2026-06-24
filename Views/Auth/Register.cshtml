@@ -15,19 +15,23 @@
             <div class="col-md-6">
                 <label class="form-label">Nombre</label>
                 <input type="text" id="firstName" class="form-control" placeholder="Juan" required />
+                <div class="invalid-feedback" id="firstNameError"></div>
             </div>
             <div class="col-md-6">
                 <label class="form-label">Apellido</label>
                 <input type="text" id="lastName" class="form-control" placeholder="Pérez" required />
+                <div class="invalid-feedback" id="lastNameError"></div>
             </div>
         </div>
         <div class="form-group mb-3">
             <label class="form-label">Correo</label>
             <input type="email" id="email" class="form-control" placeholder="ejemplo@correo.com" required />
+            <div class="invalid-feedback" id="emailError"></div>
         </div>
         <div class="form-group mb-3">
             <label class="form-label">Contraseña</label>
-            <input type="password" id="password" class="form-control" placeholder="Tu contraseña" required />
+            <input type="password" id="password" class="form-control" placeholder="Tu contraseña" required minlength="6" />
+            <div class="invalid-feedback" id="passwordError"></div>
         </div>
         <!-- Role selection removed: role is assigned server-side based on InitialOwner:Email -->
         <button type="submit" class="btn btn-primary w-100 py-2">Registrarme</button>
@@ -36,4 +40,7 @@
     <p class="text-center text-muted mt-4">¿Ya tienes cuenta? <a href="/Auth/Login">Inicia sesión</a></p>
 </div>
 
-<script src="/js/auth.js" asp-append-version="true"></script>
+@section Scripts {
+    <script src="/js/api.js" asp-append-version="true"></script>
+    <script src="/js/auth.js" asp-append-version="true"></script>
+}

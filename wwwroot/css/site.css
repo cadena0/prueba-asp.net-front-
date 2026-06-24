@@ -30,6 +30,17 @@ body {
     min-width: 140px;
 }
 
+#authNav {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: auto;
+}
+
+.main-header .nav-link {
+    color: #475569;
+}
+
 .main-content {
     min-height: calc(100vh - 180px);
 }

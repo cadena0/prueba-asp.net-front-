@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace EcosistemaRentas.Controllers
+namespace pruebaAsp.Controllers;
+
+public class UserController : Controller
 {
-    public class UserController : Controller
-    {
-        public IActionResult Dashboard() => View();
-        public IActionResult MyReservations() => View();
-    }
+    public IActionResult Dashboard() => View();
+    public IActionResult MyReservations() => View();
+    public IActionResult Favorites() => View();
 }

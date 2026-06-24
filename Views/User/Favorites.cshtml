@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Mis Favoritos";
+}
+
+<div class="container mt-4">
+    <h2>Mis Favoritos</h2>
+    <div id="favoritesContainer" class="row mt-3">
+        <div class="col-12 text-center py-5">Cargando favoritos...</div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/api.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if ((window.getUserRole ? window.getUserRole() : null) !== 'GUEST') {
+                window.location.href = '/Auth/Login';
+                return;
+            }
+
+            try {
+                const res = await fetchApi('/favorites');
+                const favorites = await res.json();
+
+                const container = document.getElementById('favoritesContainer');
+                if (!favorites || favorites.length === 0) {
+                    container.innerHTML = '<div class="text-center py-5">No tienes propiedades favoritas.</div>';
+                    return;
+                }
+
+                container.innerHTML = favorites.map(property => `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="${property.imageUrls?.[0] || '/images/default-house.jpg'}" class="card-img-top" alt="${property.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${property.title}</h5>
+                                <p class="card-text text-muted">${property.city}</p>
+                                <p class="card-text"><strong>$${property.pricePerNight}</strong> / noche</p>
+                                <a href="/Property/Details/${property.id}" class="btn btn-primary">Ver detalle</a>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error(error);
+                document.getElementById('favoritesContainer').innerHTML = '<div class="alert alert-danger">Error al cargar favoritos.</div>';
+            }
+        });
+    </script>
+}

@@ -26,21 +26,55 @@
             try {
                 const res = await fetchApi('/reservations/metrics');
                 const metrics = await res.json();
-                
+
                 const container = document.getElementById('ownerData');
-                if(reservations.length === 0) {
+                if (!res.ok) {
+                    container.innerHTML = '<div class="alert alert-danger">Error al cargar datos.</div>';
+                    return;
+                }
+
+                if (metrics.totalReservations === 0) {
                     container.innerHTML = '<p>Aún no tienes reservaciones en tus propiedades.</p>';
                     return;
                 }
 
-                let html = '<ul class="list-group">';
-                reservations.forEach(r => {
+                let html = `
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Propiedades</h5>
+                                    <p class="display-4">${metrics.totalProperties}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Reservas</h5>
+                                    <p class="display-4">${metrics.totalReservations}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ganancias</h5>
+                                    <p class="display-4">$${metrics.totalEarnings?.toLocaleString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Reservas por propiedad</h5>
+                    <ul class="list-group">
+                `;
+
+                metrics.properties?.forEach(p => {
                     html += `
                         <li class="list-group-item">
-                            <strong>${r.property.title}</strong> - 
-                            Reserva del ${new Date(r.startDate).toLocaleDateString()} 
-                            al ${new Date(r.endDate).toLocaleDateString()} 
-                            (Cliente ID: ${r.userId})
+                            <strong>${p.title}</strong> - 
+                            ${p.reservationCount} reservas - 
+                            Ganancias: $${p.earnings?.toLocaleString()}
                         </li>
                     `;
                 });
@@ -49,6 +83,7 @@
 
             } catch (error) {
                 console.error(error);
+                document.getElementById('ownerData').innerHTML = '<div class="alert alert-danger">Error de conexión.</div>';
             }
         });
     </script>

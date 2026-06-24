@@ -104,7 +104,7 @@
 /home/cohorte6/Desktop/pruebaAsp/bin/Debug/net10.0/Microsoft.IdentityModel.Tokens.dll
 /home/cohorte6/Desktop/pruebaAsp/bin/Debug/net10.0/System.IdentityModel.Tokens.Jwt.dll
 /home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/pruebaAsp.csproj.Up2Date
-/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/ql8awamsad-{0}-vzlvzpjaof-vzlvzpjaof.gz
-/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/kdsphrq9o7-{0}-xlc87zm16r-xlc87zm16r.gz
-/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/pr1gxr3ezs-{0}-p1fxos06iy-p1fxos06iy.gz
-/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/xvupdkau54-{0}-s7qr3czlb7-s7qr3czlb7.gz
+/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/pr1gxr3ezs-{0}-3wwvzuya3k-3wwvzuya3k.gz
+/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/ql8awamsad-{0}-5s3tdg52u5-5s3tdg52u5.gz
+/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/xvupdkau54-{0}-eyfcvkb8pt-eyfcvkb8pt.gz
+/home/cohorte6/Desktop/pruebaAsp/obj/Debug/net10.0/compressed/kdsphrq9o7-{0}-ck1x2qwhc7-ck1x2qwhc7.gz

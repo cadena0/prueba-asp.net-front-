@@ -5,7 +5,7 @@ namespace pruebaAsp.Services
     public sealed class InMemoryDataStore
     {
         private readonly object _lock = new();
-        private int _nextUserId = 3;
+        private int _nextUserId = 4;
         private int _nextPropertyId = 3;
         private int _nextFavoriteId = 1;
         private int _nextReservationId = 1;
@@ -33,6 +33,15 @@ namespace pruebaAsp.Services
                 Email = "guest@example.com",
                 Password = "Guest123!",
                 Role = "GUEST"
+            });
+
+            Users.Add(new User
+            {
+                Id = 3,
+                FullName = "Administrador",
+                Email = "admin@example.com",
+                Password = "Admin123!",
+                Role = "ADMIN"
             });
 
             Properties.Add(new Property

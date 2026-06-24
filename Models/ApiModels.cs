@@ -4,7 +4,7 @@ namespace pruebaAsp.Models
 {
     public class JwtSettings
     {
-        public string Key { get; set; } = "super-secret-key-12345";
+        public string Key { get; set; } = "super-secret-key-12345-super-secret-key-12345-super-secret-key-12345-super-secret-key-12345";
         public string Issuer { get; set; } = "pruebaAsp";
         public string Audience { get; set; } = "pruebaAsp";
     }

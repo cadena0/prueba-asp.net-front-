@@ -1,6 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    });
 
 builder.Services.AddSingleton<pruebaAsp.Services.InMemoryDataStore>();
 builder.Services.AddSingleton<pruebaAsp.Services.AuthService>();
@@ -35,7 +39,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("DefaultCorsPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:5247", "http://localhost:5000")
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });

@@ -1,5 +1,3 @@
-const API_BASE_URL = `${window.location.origin}/api`;
-
 function parseJwt(token) {
     try {
         const base64Url = token.split('.')[1];
@@ -30,6 +28,17 @@ function showMessage(message, type = 'danger') {
     alert.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
 }
 
+async function authFetch(endpoint, options = {}) {
+    const response = await fetch(`${window.location.origin}/api${endpoint}`, {
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+    return response;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
@@ -40,14 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
 
+            if (!email || !password) {
+                showMessage('Por favor completa todos los campos.');
+                return;
+            }
+
             try {
-                const res = await fetch(`${API_BASE_URL}/auth/login`, {
+                const res = await authFetch('/auth/login', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
 
                 const body = await res.json();
+                console.log('Login response:', res.status, body);
                 if (!res.ok) {
                     showMessage(body.message || 'Error al iniciar sesión');
                     return;
@@ -73,16 +87,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value.trim();
             const fullName = `${firstName} ${lastName}`.trim();
 
+            if (!firstName || !lastName) {
+                showMessage('Nombre y apellido son obligatorios.');
+                return;
+            }
+
+            if (!email) {
+                showMessage('El correo es obligatorio.');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('La contraseña debe tener al menos 6 caracteres.');
+                return;
+            }
+
             try {
-                const res = await fetch(`${API_BASE_URL}/auth/register`, {
+                const res = await authFetch('/auth/register', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ fullName, email, password })
                 });
 
                 const body = await res.json();
                 if (!res.ok) {
-                    showMessage(body.message || 'Error al registrarse');
+                    const message = body?.message || `Error ${res.status}: ${res.statusText}`;
+                    showMessage(message);
                     return;
                 }
 

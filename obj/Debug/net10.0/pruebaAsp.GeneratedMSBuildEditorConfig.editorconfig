@@ -66,8 +66,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/cohorte6/Desktop/pruebaAsp/Views/Users/MyReservations.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlcnMvTXlSZXNlcnZhdGlvbnMuY3NodG1s
+[/home/cohorte6/Desktop/pruebaAsp/Views/User/Favorites.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9GYXZvcml0ZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/cohorte6/Desktop/pruebaAsp/Views/User/MyReservations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9NeVJlc2VydmF0aW9ucy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/cohorte6/Desktop/pruebaAsp/Views/_ViewImports.cshtml]

@@ -18,15 +18,15 @@ public class AuthApiController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterRequest request)
     {
-        if (!ModelState.IsValid)
+        if (request?.FullName == null || request.Email == null || request.Password == null)
         {
-            return BadRequest(new { message = "Invalid registration request." });
+            return BadRequest(new { message = "Faltan datos requeridos." });
         }
 
         var result = _authService.Register(request);
         if (!result.Success)
         {
-            return BadRequest(new { message = "Email already registered or invalid role." });
+            return BadRequest(new { message = "El correo ya está registrado o el email de propietario/admin ya fue usado." });
         }
 
         return Ok(result);
@@ -35,15 +35,15 @@ public class AuthApiController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
-        if (!ModelState.IsValid)
+        if (request?.Email == null || request.Password == null)
         {
-            return BadRequest(new { message = "Invalid login request." });
+            return BadRequest(new { message = "Faltan datos requeridos." });
         }
 
         var result = _authService.Login(request);
         if (!result.Success)
         {
-            return Unauthorized(new { message = "Invalid credentials." });
+            return Unauthorized(new { message = "Credenciales inválidas. Verifica tu correo y contraseña." });
         }
 
         return Ok(result);
